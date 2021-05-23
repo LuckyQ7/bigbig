@@ -14,10 +14,7 @@ $(function () {
     var form = layui.form;
     form.verify({
         // 属性名就是规则名
-        pwd: [
-            /^[\S]{6,12}$/,
-            '不对'
-        ],
+        pwd: [/^[\S]{6,12}$/, '不对'],
         repwd: function (value, item) {
             // value 使用此表单项规则的值
             // 使用此规则的表单元素的对象

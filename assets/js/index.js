@@ -11,15 +11,22 @@ $(function () {
              }, */
             success(res) {
                 if (res.status !== 0) {
-                    layer.msg(res.message)
+                    return layer.msg(res.message, { icon: 2 })
                 }
                 console.log(res);
                 layer.msg(res.message, { icon: 1 })
 
                 // 展示用户信息
                 renderAvatar(res.data);
-
-            }
+            },
+            /*  complete(res) {
+                 // 请求失败和成功都会调用此回调函数
+                 console.log(res.responseJSON);
+                 if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
+                     localStorage.removeItem('token');
+                     location.href = '/login.html';
+                 }
+             } */
         })
 
 
@@ -42,5 +49,18 @@ $(function () {
         }
     }
 
+    // 退出登录功能
+    $('#logout').on('click', function () {
 
+        layer.confirm('确定?', { icon: 3, title: '提示' }, function (index) {
+            // 清除token
+            localStorage.removeItem('token')
+            // 跳转到登录界面
+            location.href = '/login.html'
+
+            // 关闭层
+            layer.close(index);
+        }
+        )
+    })
 })
